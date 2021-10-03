@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+
+{% block title %} Add Contacts {%endblock title %}
+
+
+{%block content %}
+
+<h2 class="text-center text-2xl text-gray-900 my-10">
+  Welcome to Contact Registry
+</h2>
+<h4 class="text-lg text-center">Please provide your details below:</h4>
+<div class="w-6/12 mx-auto">
+  <ul class="w-10/12 mx-auto">
+    {% if form.non_field_errors %}
+    <li class="py-2 px-4 bg-gray-50 lowercase text-red-500 rounded-md border-t-2 border-red-500">
+      {{ form.non_field_errors }}
+    </li>
+    {% endif %} 
+    {% for field in form %} 
+      {% if field.errors %}
+      <li class="py-2 px-4 bg-gray-50  text-red-500 rounded-md border-t-2 border-red-500">
+        {{ field.label }}:
+        <ul class="lowercase">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %} 
+    {% endfor %}
+  </ul>
+  <form action="" method="post">
+    {% csrf_token %} 
+    {{form.as_p}}
+    <div class="flex justify-center items-center mt-4">
+      <button class="py-2 px-3 bg-blue-500 text-gray-100 rounded-md">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
